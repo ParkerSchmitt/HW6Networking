@@ -1,0 +1,92 @@
+EXAMPLE:
+PUTTY 1:
+ ./directoryServer3 &
+[1] 54566
+parkerschmitt@viper:~/Assignment 5 real$ server: can't bind local address: Address already in use
+ps
+    PID TTY          TIME CMD
+  54451 pts/3    00:00:00 bash
+  54576 pts/3    00:00:00 ps
+[1]+  Exit 1                  ./directoryServer3
+parkerschmitt@viper:~/Assignment 5 real$ ^C
+parkerschmitt@viper:~/Assignment 5 real$ make
+gcc -g -ggdb -std=gnu99 -o chatServer3 chatServer3.c -pthread
+gcc -g -ggdb -std=gnu99 -o chatClient3 chatClient3.c -pthread
+gcc -g -ggdb -std=gnu99 -o directoryServer3 directoryServer3.c -pthread
+parkerschmitt@viper:~/Assignment 5 real$ ./directoryServer3 &
+[1] 54624
+parkerschmitt@viper:~/Assignment 5 real$ ./chatServer3 "assn5" 5596 &
+[2] 54645
+parkerschmitt@viper:~/Assignment 5 real$ assn5
+./chatClient3
+Avaliable servers:
+TOPIC   |   ADDRESS
+-------------------
+assn5 | 129.130.10.43:5596
+
+Enter a server to connect to:129.130.10.43:5596
+
+Connecting...
+Please enter a name for the server. MAX 20 chars:bob
+
+Joining...
+server: wrote 1 bytes to socket
+server: wrote 1 bytes to socket
+server: wrote 28 bytes to socket
+marry has joined the server
+server: wrote 13 bytes to socket
+marry: hello
+how are you doing
+server: wrote 23 bytes to socket
+server: wrote 31 bytes to socket
+marry: im doing good thank you
+server: wrote 18 bytes to socket
+marry: thats good
+yes
+server: wrote 9 bytes to socket
+^CEOF on new socket; maybe the client closed the connection?
+select error
+[2]+  Done                    ./chatServer3 "assn5" 5596
+parkerschmitt@viper:~/Assignment 5 real$
+
+PUTTY 2: 
+
+
+parkerschmitt@viper:~/Assignment 5 real$ ./chatClient3
+Avaliable servers:
+TOPIC   |   ADDRESS
+-------------------
+assn5 | 129.130.10.43:5596
+
+Enter a server to connect to:129.130.10.43:5596
+
+Connecting...
+Please enter a name for the server. MAX 20 chars:marry
+
+Joining...
+hello
+bob: how are you doing
+im doing good thank you
+thats good
+bob: yes
+
+
+
+
+1. Copy the files to your own directory.
+
+2. Modify inet.h to reflect the host you are currently logged into.
+   (use hostname and nslookup to determine the local IP address)
+   Also, modify the port numbers to be used to reduce the likelihood
+   of conflicting with another server. Check to see if the selected
+   port is in use by using the command: netstat -an | grep <port #>
+
+3. Compile the source code using the command: make
+
+4. Start the servers in the background: ./directoryServer3 &; ./chatServer3 ["NAME"] [PORT] &
+
+5. Start the client on the same or another host in the foreground: ./chatClient3
+5a: type the address of the connection, with port ADDRESS:PORT 
+5b) enter name
+
+6. Remember to kill the server before logging off.
